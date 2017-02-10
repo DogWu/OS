@@ -9,6 +9,7 @@
 [FILE "naskfunc.nas"]
 		
 		GLOBAL _io_hlt,_write_mem8
+		GLOBAL	_io_cli,_io_out8,_io_load_eflags,_io_store_eflags
 		
 [SECTION .text]
 	
@@ -22,3 +23,42 @@ _write_mem8:				;向ESP+4所指定的地址写一个字节的数据（8位）
 		MOV		AL,[ESP+8]	;存放的数据，将其读入AL
 		MOV		[ECX],AL
 		RET
+		
+_io_cli:					;void io_cli(void)
+		CLI
+		RET
+		
+_io_out8:					;void io_out8(int port,int data)
+		MOV		EDX,[ESP+4]
+		MOV		AL,[ESP+8]
+		OUT		DX,AL
+		RET
+		
+_io_load_eflags:			;void io_load_eflags(void)
+		PUSHFD				;PUSH	EFLAGS
+		POP		EAX
+		RET
+		
+_io_store_eflags:			;void io_store_eflags(int eflags)
+		MOV		EAX,[ESP+4]
+		PUSH	EAX
+		POPFD				;POP EFLAGS
+		RET
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
