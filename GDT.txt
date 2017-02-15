@@ -1,5 +1,7 @@
 
+
 Q1：关于设置GDTR汇编代码
+
 
 _load_gdtr:	;void load_gdtr(int limit,int addr);
 	MOV	AX,[SP+4]
@@ -47,7 +49,9 @@ AX是一个2字节的寄存器，所以 MOV	AX,[SP+4] 后，AX寄存器存储的是FFFF；
 +-------+---->高	
 所以再将以SP+6为首地址的6字节赋值给GDTR则完成了GDTR的赋值：LGDT	[SP+6]
 
+
 Q2：初始化GDT时C代码的解释
+
 
 typedef struct SEGMENT_DESCRIPTOR {
 	short limit_low, base_low;
